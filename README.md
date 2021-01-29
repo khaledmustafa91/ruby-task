@@ -9,7 +9,6 @@ Use that `docker-compose up`
 # requests about /user  
 
 ### "POST /user"
-#### the user input should be like 
 
 ## Description 
 user should make a post request with that json body 
