@@ -39,7 +39,7 @@ class UserController < ApplicationController
 #                 render json: {message: "invalid token"} , status: :unauthorized
 #             end
        else
-           render json:{message: "invalid password or email"}
+           render json:{message: "invalid password or email"}, status: :not_acceptable
        end
     end
 
@@ -56,14 +56,15 @@ class UserController < ApplicationController
 
     def destroy
         user = logged_in_user
-        if user
+
+        if user and user['id'] == params[:id].to_i
             if user.destroy
-                head :no_content
+               head :no_content
             else
-               # render json: user.errors , status: :unprocessable_entity
+               render json: user.errors , status: :unprocessable_entity
             end
         else
-            #render json: {message: "unauthorized"} , status: :unauthorized
+            render json: {message: "unauthorized"} , status: :unauthorized
         end
     end
 

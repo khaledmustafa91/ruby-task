@@ -19,10 +19,11 @@ class PostController < ApplicationController
     end
 
     def show
-
+        #retrieve post with it comments
         post = Post.find(params[:id])
+        comments = post.comments #Comment.where(["post_id = :post_id", {post_id: post.id}])
         if post
-            render json:post , status: :created
+            render json:{post: post , comments: comments} , status: :ok
         else
             render json:{message: "not found"}, status: :not_found
         end
