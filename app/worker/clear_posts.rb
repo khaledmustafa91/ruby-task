@@ -6,6 +6,6 @@ class CleanPosts
   #recurrence { daily }
 
   def perform
-    Post.where('created_at >= :thirty_days_ago', thiryty_days_ago: Time.now - 1.days).destroy_all
+    Post.where('created_at >= :thirty_days_ago', thiryty_days_ago: Time.now - 1.days).destroy
   end
 end
