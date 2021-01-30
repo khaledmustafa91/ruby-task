@@ -202,7 +202,7 @@ If you not owner of that post api won't allow to you
 delete that post 
 
 ### output
-status code : 201 OK
+status code : 200 OK
 
 
 
@@ -301,7 +301,7 @@ If you not owner of that comment api won't allow to you
 delete that comment 
 
 ### output
-status code : 201 OK
+status code : 200 OK
 
 
 
