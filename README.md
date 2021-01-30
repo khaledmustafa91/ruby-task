@@ -10,14 +10,14 @@ Use that `docker-compose up`
 
 ### "POST /user"
 
+post request `post '/user', parameters: {json body}, headers { "Content-Type": "application/json" }` 
+
 ## Description 
 User should make a post request with input json body 
 to create new user and the api should return user information
 and the response will be like that output format
 
 ### Input
-post request `post '/user', parameters: {json body}, headers { "Content-Type": "application/json" }` 
-
 ```json
 { 
   "user": {
@@ -30,8 +30,6 @@ post request `post '/user', parameters: {json body}, headers { "Content-Type": "
 ```
  
 ### Output 
-
-
 ```json
 {
     "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6ImtoYWxlZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1Njc4In0.-HZyS5KJyunBcDWsFZ2an0fBdFgl_8hs7kqjXSwDbg4",
@@ -56,7 +54,6 @@ to login to the api and will return token back
 to use it for make any request for api
 
 ### Input 
-
 ```json
 {
   "user":
@@ -67,7 +64,6 @@ to use it for make any request for api
 }
 ```
 ### Output
-
 ```json
 {
     "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6ImtoYWxlZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1Njc4In0.-HZyS5KJyunBcDWsFZ2an0fBdFgl_8hs7kqjXSwDbg4"
@@ -76,7 +72,6 @@ to use it for make any request for api
 ```
 
 ### "DELETE /user"
-
 
 delete request `delete '/user/:user_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
@@ -90,6 +85,7 @@ to delete his account from the system
 
 
 ### Post '/post'
+
 post request `post '/post', paramters: {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
@@ -126,6 +122,7 @@ and all post arrtributes: title, body and tags
 ```
 
 ### Patch '/post/:post_id'
+
 patch request `patch '/post/:post_id', paramters: {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
@@ -165,6 +162,7 @@ update that post
 ```
 
 ### Get '/post/:post_id'
+
 get request `get '/post/:post_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
@@ -193,6 +191,7 @@ and post id
 
 
 ### Delete '/post/:post_id'
+
 delete request `delete '/post/:post_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
@@ -213,6 +212,7 @@ status code : 201 OK
 
 
 ### Post '/post/:post_id/comment'
+
 post request `post '/post/:post_id/comment', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
@@ -239,6 +239,7 @@ and all comment arrtributes: body
 ```
 
 ### Patch '/post/:post_id/comment/:comment_id'
+
 patch request `patch '/post/:post_id/comment/:comment_id', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
@@ -268,6 +269,7 @@ update that comment
 ```
 
 ### Get '/post/:post_id/comment/:comment_id'
+
 get request `get '/post/:post_id/comment/:comment_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
@@ -288,6 +290,7 @@ To get an existing comment you should have your JWT token
 
 
 ### Delete '/post/:post_id/comment/:comment_id'
+
 delete request `delete '/post/:post_id/comment/:comment_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
