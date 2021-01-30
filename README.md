@@ -1,22 +1,22 @@
-# How this api works
+# How this API works
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-## run with that command 
+# Run that command to run API
 Use that `docker-compose up` 
 
-# requests about /user  
+# Requests about /user (user API)
 
 ### "POST /user"
 
 ## Description 
-user should make a post request with that json body 
+User should make a post request with input json body 
 to create new user and the api should return user information
-and the response will be like that format
+and the response will be like that output format
 
-### input
-post request `post /post, headers { "Content-Type": "application/json" }` 
+### Input
+post request `post '/user', headers { "Content-Type": "application/json" }` 
 
 ```json
 { 
@@ -29,14 +29,14 @@ post request `post /post, headers { "Content-Type": "application/json" }`
 }
 ```
  
-### output 
+### Output 
 
 
 ```json
 {
     "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJlbWFpbCI6ImtoYWxlZEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQ1Njc4In0.-HZyS5KJyunBcDWsFZ2an0fBdFgl_8hs7kqjXSwDbg4",
     "user": {
-        "id": 2,
+        "id": 1,
         "name": "khaled",
         "email": "khaled@gmail.com",
         "password_digest": "$2a$12$NGSoLi1A0U/mezM/f0Ja0OH/vuvpiipywBsh74f9N6ZsoBkU.uwaG",
@@ -48,14 +48,14 @@ post request `post /post, headers { "Content-Type": "application/json" }`
 ```
 ### "POST /login"
 
-post request `post /login, headers { "Content-Type": "application/json" }` 
+post request `post '/login', headers { "Content-Type": "application/json" }` 
 
 ## Description 
-user should make a post request with input json body 
+User should make a post request with input json body 
 to login to the api and will return token back
 to use it for make any request for api
 
-### input 
+### Input 
 
 ```json
 {
@@ -66,7 +66,7 @@ to use it for make any request for api
     }
 }
 ```
-### output
+### Output
 
 ```json
 {
@@ -78,7 +78,7 @@ to use it for make any request for api
 ### "DELETE /user"
 
 
-post request `delete /user/:user_id, paramters : json body, headers { "Content-Type": "application/json" , "Authorization": "Bearer <token>"  }` 
+delete request `delete '/user/:user_id', paramters : json body, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
 user should make a delete request with his token 
@@ -86,17 +86,17 @@ to delete his account from the system
 
 
 
-# requests about /post
+# Requests about "/post" (Post API)
 
 
-### Post '/post/'
-post request `post /post, paramters : json body, headers { "Content-Type": "application/json" , "Authorization": "Bearer <token>"  }` 
+### Post '/post'
+post request `post '/post', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
 to make new post you should have your JWT token 
-and all post arrtributes : title, body and tags 
+and all post arrtributes: title, body and tags 
 
-### input 
+### Input 
 ```json
 {
    "title":"add new post",
@@ -105,7 +105,7 @@ and all post arrtributes : title, body and tags
 }
 ```
 
-### output 
+### Output 
 ```json
 {
     "post": {
@@ -126,13 +126,16 @@ and all post arrtributes : title, body and tags
 ```
 
 ### Patch '/post/:post_id'
-post request `patch /post/:post_id, paramters : json body, headers { "Content-Type": "application/json" , "Authorization": "Bearer <token>"  }` 
+patch request `patch '/post/:post_id', paramters : json body, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to update an existing post you should have your JWT token 
-and post id and updated arrtributes : title, body or tags 
+to update an existing post you should have your JWT token
+,post id and updated arrtributes: title, body or tags
+#### note 
+if you not owner of that post api won't allow to you 
+update that post 
 
-### input
+### Input
 ```json
 {
    "title":"update post",
@@ -141,6 +144,34 @@ and post id and updated arrtributes : title, body or tags
 }
 ```
 
+### Output
+```json
+{
+    "post": {
+        "id": 1,
+        "title": "update post",
+        "body": "restful api for blogs application",
+        "tags": [
+            "ruby",
+            "ruby on rails",
+            "api"
+        ],
+        "user_id": 1,
+        "created_at": "2021-01-29T22:51:28.788Z",
+        "updated_at": "2021-01-29T22:51:28.788Z"
+    },
+    "comments": []
+}
+```
+
+### Get '/post/:post_id'
+get request `get '/post/:post_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+
+## Description
+to get an existing post you should have your JWT token
+and post id
+
+### Output
 ```json
 {
     "post": {
@@ -161,29 +192,151 @@ and post id and updated arrtributes : title, body or tags
 ```
 
 
+### Delete '/post/:post_id'
+delete request `delete '/post/:post_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+
+## Description
+to delete an existing post you should have your JWT token
+and post id
+#### Note 
+if you not owner of that post api won't allow to you 
+delete that post 
+
+### output
+status code : 201 OK
 
 
 
 
 
-This site was built using [GitHub Pages](https://pages.github.com/).
+# Requests about "/post/:post_id/comment" (Comment Api)
+
+
+### Post '/post/:post_id/comment'
+post request `post '/post/:post_id/comment', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+
+## Description
+to make new comment on a post you should have your JWT token 
+and all comment arrtributes: body 
+
+### Input 
+```json
+{
+   "body": "restful api for blogs application",
+}
+```
+
+### Output 
+```json
+{
+    "id": 1,
+    "body": "restful api for blogs application",
+    "user_id": 1,
+    "post_id": 1,
+    "created_at": "2021-01-29T22:52:06.341Z",
+    "updated_at": "2021-01-29T22:52:06.341Z"
+}
+```
+
+### Patch '/post/:post_id/comment'
+patch request `patch '/post/:post_id/comment/:comment_id', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+
+## Description
+to update an existing comment on a post you should have your JWT token, 
+post id, comment id and updated arrtributes: body
+#### Note 
+if you are not owner of that comment api won't allow to you 
+update that comment 
+
+### Input
+```json
+{
+   "body": "update restful api for blogs application",
+}
+```
+
+### Output
+```json
+{
+    "id": 1,
+    "body": "update restful api for blogs application",
+    "user_id": 1,
+    "post_id": 1,
+    "created_at": "2021-01-29T22:52:06.341Z",
+    "updated_at": "2021-01-29T22:52:06.341Z"
+}
+```
+
+### Get '/post/:post_id/comment'
+get request `get '/post/:post_id/comment', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+
+## Description
+to get an existing comment you should have your JWT token
+,post id and comment id
+
+### Output
+```json
+{
+    "id": 1,
+    "body": "restful api for blogs application",
+    "user_id": 1,
+    "post_id": 1,
+    "created_at": "2021-01-29T22:52:06.341Z",
+    "updated_at": "2021-01-29T22:52:06.341Z"
+}
+```
+
+
+### Delete '/post/:post_id/comment'
+delete request `delete '/post/:post_id/comment', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+
+## Description
+to delete an existing comment you should have your JWT token,
+post id and comment id
+#### Note 
+if you not owner of that comment api won't allow to you 
+delete that comment 
+
+### output
+status code : 201 OK
 
 
 
-* Ruby version
 
-* System dependencies
+## Some validation errors 
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- If you try to create new user and password less than 8 characters or invalid email 
+  - **Error Message will be like that**
+    - ```json  
+        {
+            "email": [
+                "is invalid"
+            ],
+            "password": [
+                "is too short (minimum is 8 characters)"
+            ]
+        }
+       ```
+- If you try to create a new post with missing arrtributes 
+  - **Error Message will be like that**
+    - ```json
+            {
+                "message": {
+                    "title": [
+                         "can't be blank"
+                        ]
+               }
+             }
+      ```
+- If you try to create a new comment with empty body
+  - **Error Message will be like that**
+    - ```json 
+            {
+                "message": {
+                        "body": [
+                            "can't be blank"
+                        ]
+                }
+            }
+       ```
