@@ -71,7 +71,7 @@ to use it for make any request for api
 
 ```
 
-### "DELETE /user"
+### "DELETE /user/:user_id"
 
 delete request `delete '/user/:user_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
@@ -79,6 +79,11 @@ delete request `delete '/user/:user_id', headers { "Content-Type": "application/
 User should make a delete request with his token 
 to delete his account from the system
 
+### Note 
+if token doesn't match the right id won't allow to you delete that user 
+
+### output
+status code : 200 OK
 
 
 # Requests about "/post" (Post API)
