@@ -16,7 +16,7 @@ to create new user and the api should return user information
 and the response will be like that output format
 
 ### Input
-post request `post '/user', headers { "Content-Type": "application/json" }` 
+post request `post '/user', parameters: {json body}, headers { "Content-Type": "application/json" }` 
 
 ```json
 { 
@@ -48,7 +48,7 @@ post request `post '/user', headers { "Content-Type": "application/json" }`
 ```
 ### "POST /login"
 
-post request `post '/login', headers { "Content-Type": "application/json" }` 
+post request `post '/login', paramters: {json body}, headers { "Content-Type": "application/json" }` 
 
 ## Description 
 User should make a post request with input json body 
@@ -78,10 +78,10 @@ to use it for make any request for api
 ### "DELETE /user"
 
 
-delete request `delete '/user/:user_id', paramters : json body, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+delete request `delete '/user/:user_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-user should make a delete request with his token 
+User should make a delete request with his token 
 to delete his account from the system
 
 
@@ -90,10 +90,10 @@ to delete his account from the system
 
 
 ### Post '/post'
-post request `post '/post', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+post request `post '/post', paramters: {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to make new post you should have your JWT token 
+To make new post you should have your JWT token 
 and all post arrtributes: title, body and tags 
 
 ### Input 
@@ -126,13 +126,13 @@ and all post arrtributes: title, body and tags
 ```
 
 ### Patch '/post/:post_id'
-patch request `patch '/post/:post_id', paramters : json body, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+patch request `patch '/post/:post_id', paramters: {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to update an existing post you should have your JWT token
+To update an existing post you should have your JWT token
 ,post id and updated arrtributes: title, body or tags
-#### note 
-if you not owner of that post api won't allow to you 
+#### Note 
+If you not owner of that post api won't allow to you 
 update that post 
 
 ### Input
@@ -168,7 +168,7 @@ update that post
 get request `get '/post/:post_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to get an existing post you should have your JWT token
+To get an existing post you should have your JWT token
 and post id
 
 ### Output
@@ -196,10 +196,10 @@ and post id
 delete request `delete '/post/:post_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to delete an existing post you should have your JWT token
+To delete an existing post you should have your JWT token
 and post id
 #### Note 
-if you not owner of that post api won't allow to you 
+If you not owner of that post api won't allow to you 
 delete that post 
 
 ### output
@@ -216,7 +216,7 @@ status code : 201 OK
 post request `post '/post/:post_id/comment', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to make new comment on a post you should have your JWT token 
+To make new comment on a post you should have your JWT token 
 and all comment arrtributes: body 
 
 ### Input 
@@ -238,14 +238,14 @@ and all comment arrtributes: body
 }
 ```
 
-### Patch '/post/:post_id/comment'
+### Patch '/post/:post_id/comment/:comment_id'
 patch request `patch '/post/:post_id/comment/:comment_id', paramters : {json body}, headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to update an existing comment on a post you should have your JWT token, 
+To update an existing comment on a post you should have your JWT token, 
 post id, comment id and updated arrtributes: body
 #### Note 
-if you are not owner of that comment api won't allow to you 
+If you are not owner of that comment api won't allow to you 
 update that comment 
 
 ### Input
@@ -267,11 +267,11 @@ update that comment
 }
 ```
 
-### Get '/post/:post_id/comment'
-get request `get '/post/:post_id/comment', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+### Get '/post/:post_id/comment/:comment_id'
+get request `get '/post/:post_id/comment/:comment_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to get an existing comment you should have your JWT token
+To get an existing comment you should have your JWT token
 ,post id and comment id
 
 ### Output
@@ -287,14 +287,14 @@ to get an existing comment you should have your JWT token
 ```
 
 
-### Delete '/post/:post_id/comment'
-delete request `delete '/post/:post_id/comment', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
+### Delete '/post/:post_id/comment/:comment_id'
+delete request `delete '/post/:post_id/comment/:comment_id', headers { "Content-Type": "application/json" , "Authorization": "Bearer <user_token>"  }` 
 
 ## Description
-to delete an existing comment you should have your JWT token,
+To delete an existing comment you should have your JWT token,
 post id and comment id
 #### Note 
-if you not owner of that comment api won't allow to you 
+If you not owner of that comment api won't allow to you 
 delete that comment 
 
 ### output
@@ -340,3 +340,33 @@ status code : 201 OK
                 }
             }
        ```
+## Example of post have some comments 
+
+
+```json
+{
+    "post": {
+        "id": 1,
+        "title": "blog api",
+        "body": "restful api for books application",
+        "tags": [
+            "ruby",
+            "ruby on rails",
+            "api"
+        ],
+        "user_id": 1,
+        "created_at": "2021-01-29T22:51:28.788Z",
+        "updated_at": "2021-01-29T22:51:28.788Z"
+    },
+    "comments": [
+        {
+            "id": 1,
+            "body": "that is useful api",
+            "user_id": 2,
+            "post_id": 1,
+            "created_at": "2021-01-29T22:52:06.341Z",
+            "updated_at": "2021-01-29T22:52:06.341Z"
+        }
+    ]
+}
+```
