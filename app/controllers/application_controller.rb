@@ -30,7 +30,6 @@ class ApplicationController < ActionController::API
           email = decoded_token[0]['email']
           password = decoded_token[0]['password']
           user = User.find_by(id: user_id) # find user based on given token
-          #render json: {user: user}
           # check if returned user is correct with email and password
           if user && user['email'] == email &&  BCrypt::Password.new(user['password_digest']) == password
                 return user
@@ -44,7 +43,6 @@ class ApplicationController < ActionController::API
       end
 
       def authorized
-        #logged_in?
         render json: { message: 'token missing' }, status: :unauthorized unless logged_in?
 
        rescue JWT::VerificationError, JWT::DecodeError

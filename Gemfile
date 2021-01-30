@@ -49,5 +49,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # install sidekick
 # gem 'sidekick', '~> 0.7.0'
 
-# install sidekiq
-gem 'sidekiq'
+# install sidekiq and redis and sidekiq-cron
+gem 'redis', '~> 4.2', '>= 4.2.1'
+# gem 'redis'
+gem 'sidekiq', '~> 5.2.8'
+gem 'sidekiq-cron'

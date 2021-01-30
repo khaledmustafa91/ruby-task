@@ -4,25 +4,36 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD:
       MYSQL_DATABASE: blog_development
       MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "3307:3306"
-  app:
+  web:
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - ".:/app"
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - db
     links:
       - db
+      - redis
     environment:
       DB_USER: root
       DB_NAME: blog_development
       DB_PASSWORD:
-      DB_HOST: localhost
+      DB_HOST: db
+  sidekiq:
+    build: .
+    volumes:
+      - ".:/app"
+    links:
+      - db
+      - redis
+    command: bundle exec sidekiq
+  redis:
+    image: redis:3.2

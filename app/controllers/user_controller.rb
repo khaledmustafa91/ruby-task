@@ -33,30 +33,16 @@ class UserController < ApplicationController
                             password: params[:user][:password]
                             })
             render json: {token: token}
-#             if user_from_JWT && user_from_JWT['id'] == user_logged[0].id
-#                render json: user_from_JWT
-#             else
-#                 render json: {message: "invalid token"} , status: :unauthorized
-#             end
        else
            render json:{message: "invalid password or email"}, status: :not_acceptable
        end
     end
 
-#     def index
-#        user = User.where(["email = :email and password = :password" , {email: params[:email] , password: params[:password]}])
-#        if user.count == 1
-#             render json: user, status: :ok
-#        else
-#             render json: {error_type: "401" }, status: :unauthorized
-#        end
-# #        user = User.find(params[:id])
-# #        render json: user , status: :ok
-#     end
-
     def destroy
+        # check if user has the right token or not
         user = logged_in_user
 
+        # make sure that user has the same id to give him permission to delete
         if user and user['id'] == params[:id].to_i
             if user.destroy
                head :no_content
@@ -72,11 +58,4 @@ class UserController < ApplicationController
         def user_params
             params.require(:user).permit(:name,:email,:password,:image)
         end
-
-#         def login_params
-#             params.require(:user).permit(:email,:password)
-#         end
-
-
-
 end

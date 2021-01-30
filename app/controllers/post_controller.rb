@@ -6,22 +6,23 @@ class PostController < ApplicationController
     end
 
     def create
-
+        # check if user has the right token or not
         user = logged_in_user
         # save post by user references
         post = Post.new(post_params.merge(user_id: user['id']))
 
+
         if post.save
             render json: post , status: :created
         else
-            render json:{message: post.errors} , status: :unprocessable_entity
+            render json:{message: post.errors} , status: :not_acceptable
         end
     end
 
     def show
         #retrieve post with it comments
         post = Post.find(params[:id])
-        comments = post.comments #Comment.where(["post_id = :post_id", {post_id: post.id}])
+        comments = post.comments # find all comments associated with that post
         if post
             render json:{post: post , comments: comments} , status: :ok
         else

@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_01_26_135142) do
 
-  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
+  create_table "comments", charset: "latin1", force: :cascade do |t|
     t.string "body"
     t.bigint "user_id"
     t.bigint "post_id"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_135142) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "posts", charset: "utf8mb4", force: :cascade do |t|
+  create_table "posts", charset: "latin1", force: :cascade do |t|
     t.string "title"
     t.string "body"
     t.string "tags"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_135142) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "latin1", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"

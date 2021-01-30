@@ -1,11 +1,12 @@
 class CommentController < ApplicationController
     before_action :authorized
     def create
-        user = logged_in_user
-        post = Post.find(params[:post_id])
+        user = logged_in_user # check if user has the right token or not
+        post = Post.find(params[:post_id]) # get post with id parameter
 
-        comment = Comment.new(comment_params.merge(user_id: user['id'], post_id: post['id']))
+        comment = Comment.new(comment_params.merge(user_id: user['id'], post_id: post['id'])) # create comment associated with the right post
 
+        # if not save then will return all errors
         if comment.save
             render json: comment , status: :created
         else
@@ -15,6 +16,7 @@ class CommentController < ApplicationController
     end
 
     def show
+        # find the right comment by comment_id if we can find it will fire RecordNotFound error
         comment = Comment.find(params[:id])
         render json:comment , status: :ok
     end
